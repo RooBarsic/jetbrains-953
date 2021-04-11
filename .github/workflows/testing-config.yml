@@ -19,4 +19,9 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v1
       - name: Run tests
+        env:
+          TESTING_REPOSITORY_BRANCH: ${{ secrets.TESTING_REPOSITORY_BRANCH }}
+          TESTING_REPOSITORY_NAME: ${{ secrets.TESTING_REPOSITORY_NAME }}
+          TESTING_REPOSITORY_OWNER: ${{ secrets.TESTING_REPOSITORY_OWNER   }}
+          TESTING_REPOSITORY_TOKEN: ${{ secrets.TESTING_REPOSITORY_TOKEN }}
         run: mvn test
