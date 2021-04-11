@@ -8,9 +8,15 @@ import java.io.IOException;
 
 
 public class LastCommonCommitsFinderImplTest {
-    final String REPOSITORY_NAME = "jetbrains-953";
-    final String REPOSITORY_OWNER = "RooBarsic";
-    final String REPOSITORY_TOKEN = "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";
+    final String REPOSITORY_NAME;
+    final String REPOSITORY_OWNER;
+    final String REPOSITORY_TOKEN;
+
+    public LastCommonCommitsFinderImplTest() {
+        REPOSITORY_NAME = System.getenv("TESTING_REPOSITORY_NAME");
+        REPOSITORY_OWNER = System.getenv("TESTING_REPOSITORY_OWNER");
+        REPOSITORY_TOKEN = System.getenv("TESTING_REPOSITORY_TOKEN");
+    }
 
     @Test(expected = Exception.class)
     public void canNotLoadAccessUndefinedBranch() throws IOException {

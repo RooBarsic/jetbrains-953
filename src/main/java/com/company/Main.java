@@ -2,16 +2,13 @@ package com.company;
 
 import com.company.lib.api.LastCommonCommitsFinder;
 import com.company.lib.imple.LastCommonCommitsFinderFactoryImpl;
-import com.company.utils.RestUtils;
-import org.json.JSONArray;
 
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         System.out.println("Hello TeamCity");
 
         Scanner scanner = new Scanner(System.in);
@@ -19,10 +16,11 @@ public class Main {
         System.out.print("UserName : ");
         String userName = scanner.next();
 
-        String token = "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";
+        System.out.print("token : ");
+        String token = scanner.next();
 
         LastCommonCommitsFinderFactoryImpl lastCommonCommitsFinderFactory = new LastCommonCommitsFinderFactoryImpl();
-        System.out.print("repo name : ");
+        System.out.print("repository name : ");
         String repoName = scanner.next();
         LastCommonCommitsFinder lastCommonCommitsFinder = lastCommonCommitsFinderFactory.create(userName, repoName, token);
 
@@ -43,7 +41,7 @@ public class Main {
                 for (final String commonCommit : commonCommitsList) {
                     System.out.println(commonCommit);
                 }
-                System.out.println("ans size = " + commonCommitsList.size());
+                System.out.println("results size = " + commonCommitsList.size());
             } catch (Exception ignored) {
                 System.out.println(" some exception occurs");
             }

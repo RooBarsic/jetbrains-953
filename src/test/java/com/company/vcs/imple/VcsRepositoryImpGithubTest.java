@@ -6,10 +6,17 @@ import org.junit.Test;
 import static org.junit.Assert.fail;
 
 public class VcsRepositoryImpGithubTest {
-    final String REPOSITORY_NAME = "jetbrains-953";
-    final String REPOSITORY_OWNER = "RooBarsic";
-    final String REPOSITORY_TOKEN = "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";
-    final String REPOSITORY_BRANCH = "master";
+    final String REPOSITORY_NAME;
+    final String REPOSITORY_OWNER;
+    final String REPOSITORY_TOKEN;
+    final String REPOSITORY_BRANCH;
+
+    public VcsRepositoryImpGithubTest() {
+        REPOSITORY_NAME = System.getenv("TESTING_REPOSITORY_NAME");
+        REPOSITORY_OWNER = System.getenv("TESTING_REPOSITORY_OWNER");
+        REPOSITORY_TOKEN = System.getenv("TESTING_REPOSITORY_TOKEN");
+        REPOSITORY_BRANCH = System.getenv("TESTING_REPOSITORY_BRANCH");
+    }
 
     @Test
     public void canAccessCurrentProjectRepository() {
