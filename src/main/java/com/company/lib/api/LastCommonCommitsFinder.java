@@ -1,4 +1,4 @@
-package com.company.lib;
+package com.company.lib.api;
 
 import java.io.IOException;
 import java.util.Collection;

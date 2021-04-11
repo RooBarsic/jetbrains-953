@@ -1,4 +1,4 @@
-package com.company.lib;
+package com.company.lib.api;
 
 
 /**
