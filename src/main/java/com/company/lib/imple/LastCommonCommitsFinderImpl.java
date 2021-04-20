@@ -5,7 +5,14 @@ import com.company.vcs.api.VcsRepository;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Implementation of LastCommonCommitsFinder Interface
@@ -39,10 +46,28 @@ public class LastCommonCommitsFinderImpl implements LastCommonCommitsFinder {
                 final Set<String> branchACommitsSet = new HashSet<>(fetchBranch(branchA));
                 final List<String> branchBCommitsList = new LinkedList<>(fetchBranch(branchB));
 
-                final List<String> lastCommonCommitsSha = new LinkedList<>();
+                final List<String> commonCommitsSha = new LinkedList<>();
                 for (final String branchBCommitSha : branchBCommitsList) {
                     if (branchACommitsSet.contains(branchBCommitSha)) {
-                        lastCommonCommitsSha.add(branchBCommitSha);
+                        commonCommitsSha.add(branchBCommitSha);
+                    }
+                }
+
+                /*
+                Пройдёмся, с конца, по списку общих коммитов обоих веток.
+                По очереди, для каждого commitSha - удалим из списка обших
+                коммитов - все коммиты достижимые из commitSha и добавим commitSha в ответ.
+                Таким образом - каждый раз мы будем брать лист из дерева обших коммитов заданых двух веток
+                Это можно сделать и через стримы
+                 */
+                final List<String> lastCommonCommitsSha = new LinkedList<>();
+                final Set<String> visibleCommitsSet = new HashSet<>();
+                for (int i = commonCommitsSha.size() - 1; i >= 0; i--) {
+                    final String commitSha = commonCommitsSha.get(i);
+                    if (!visibleCommitsSet.contains(commitSha)) {
+                        lastCommonCommitsSha.add(commitSha);
+
+                        visibleCommitsSet.addAll(fetchBranch(commitSha));
                     }
                 }
 
